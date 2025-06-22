@@ -1,3 +1,3 @@
 @echo off
-python D:\Documents\Bot\wheel\wheel.py
+python wheel.py
 pause
