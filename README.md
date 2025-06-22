@@ -1,118 +1,112 @@
-# AllKeyShop Wheel Automation
-
-This script automates the process of interacting with the **AllKeyShop Wheel**, logging in with saved cookies, spinning the wheel, handling the result, and sending the prize to a **Discord webhook**.
+### AllKeyShop Wheel Automation
+This script automates the process of interacting with the AllKeyShop Wheel, logging in with saved cookies, spinning the wheel, handling the result, and sending the prize to a Discord webhook.
 
 ## Features
-- **Steam Login**: Automatically logs into Steam using saved cookies.
-- **AllKeyShop Login**: Automatically logs into AllKeyShop using saved cookies.
-- **Wheel Spin**: Clicks the wheel to spin it.
-- **Popup Handling**: Closes the popup and sends the prize information (e.g., points, gift cards) to a Discord webhook.
-- **Re-spin**: Spins the wheel again after a short wait.
-- **Discord Mention**: Mentions a specific user on Discord if the prize includes certain rewards (like €10 gift cards or the PS5 prize).
+- Steam Login: Automatically logs into Steam using saved cookies.
+- AllKeyShop Login: Automatically logs into AllKeyShop using saved cookies.
+- Wheel Spin: Clicks the wheel to spin it.
+- Popup Handling: Closes the popup and sends the prize information (e.g., points, gift cards) to a Discord webhook.
+- Re-spin: Spins the wheel again after a short wait.
 
-## Prerequisites
+Prerequisites
+1. Install Python
+Ensure you have Python 3.x installed. You can download it from python.org.
 
-### 1. **Install Python**
-Ensure you have **Python 3.x** installed. You can download it from [python.org](https://www.python.org/downloads/).
+2. Install Dependencies
+You need to install the required Python libraries. To do so, you can either use pip or run a batch file to install everything.
 
-### 2. **Install Dependencies**
-You need to install the required Python libraries. You can install them using `pip`. Selenium and Requests
+Option 1: Install using pip:
+open cmd:
+pip install selenium
+pip install requests
 
-In your terminal, run:
-```bash
-pip install Selenium
-pip install Requests
-```
-or just:
-run install_requirements.bat
+Option 2: Simply run the provided install_requirements.bat batch file to install all dependencies automatically.
 
-3. Download ChromeDriver
+3. Download ChromeDriver (unless u download the releases or downloaded the whole code ignore this)
 You'll need ChromeDriver for the script to work with Google Chrome. ChromeDriver is required for Selenium to control Chrome.
 
-Download ChromeDriver: You can download it directly from ChromeDriver's official page. https://sites.google.com/chromium.org/driver/downloads
+Download ChromeDriver from the official page.
 
-Ensure that the version of ChromeDriver matches your installed version of Google Chrome. You can check your version of Chrome by navigating to chrome://settings/help.
+Ensure that the version of ChromeDriver matches your installed version of Google Chrome. To check your version of Chrome, go to chrome://settings/help.
 
-chromedriver_path: Provide the absolute path to the chromedriver.exe you downloaded.
+4. Edit the Configuration (config.json)
+You'll need to configure the path for ChromeDriver and optionally set your Discord webhook URL.
 
-webhook_url: Replace with your Discord webhook URL to send prize information.
+Example config.json:
 
-4. Save Cookies (Initial Login)
+{
+  "chromedriver_path": "chromedriver.exe", (leave like this if u downloaded from release or code)
+  "webhook_url": "https://discord.com/api/webhooks/1234567890/abcdefg"
+}
+chromedriver_path: Provide the absolute path to chromedriver.exe. 
 
-Before using the automation script, you must log into Steam and AllKeyShop manually at least once and save the cookies.
+webhook_url: If you want to receive notifications via a Discord webhook, fill this in. If not, you can leave it blank.
 
-For that start run_save.bat
+Step-by-Step Setup
+1. Save Cookies (Initial Login)
+Before using the automation script, you need to log into Steam and AllKeyShop manually once and save the cookies.
 
+To do this, run the save_session.py script by double-clicking run_save.bat or running the following in your terminal:
+
+python save_session.py
 This will:
 
 Open the Steam login page, where you can log in manually.
 
 Save the Steam cookies to cookies.pkl.
 
-Open the AllKeyShop reward page, where you can log in manually and save the AllKeyShop cookies to allkeyshop_cookies.pkl.
+Open the AllKeyShop reward https://www.allkeyshop.com/blog/reward-program/ page, where you can log in manually and save the AllKeyShop cookies to allkeyshop_cookies.pkl. (might be a but buggy refresh and try again until you are logged into your account)
 
-6. Run the Automation Script
-After saving the cookies, you can run the main automation script wheel.py:
-or just run run_main.bat
+2. Run the Automation Script
+After saving the cookies, you can run the main automation script.
+
+To run wheel.py, you can either:
+
+Run it directly:
+
+python wheel.py
+
+Or use the run_main.bat batch file to make it easier:
+
+Double-click on run_main.bat to automatically start the script.
+
+The script will:
 
 Load the saved cookies for Steam and AllKeyShop.
 
 Click the AllKeyShop wheel twice to spin it.
 
-Handle the popup and send the result to the Discord webhook.
+Handle the popup and send the result to your Discord webhook (if configured).
 
-# Optional run script automatic daily:
-When you confirmed everything worked by having the script doing the task at least once here is the best way to have it automatically do it everyday:
+Optional: Schedule Script to Run Automatically Every Day
+After confirming that the script works as expected, you can use Task Scheduler to run it automatically every day.
 
-Open Task Scheduler
+1. Open Task Scheduler
+Press the Start button and search for Task Scheduler.
 
-Open the Start menu and search for Task Scheduler.
-
-Open Task Scheduler.
-
-Create a New Task
-
-In the Task Scheduler, click on Create Basic Task from the right-hand pane.
+2. Create a New Task
+In Task Scheduler, click on Create Basic Task in the right-hand pane.
 
 Name the Task:
 
 Enter a name (e.g., AllKeyShop Wheel Automation).
 
-You can also provide a description, such as "Runs the wheel automation script every day."
+Optionally, add a description like "Runs the wheel automation script every day."
 
-Set the Trigger:
-
+3. Set the Trigger
 Choose Daily to run the task every day.
 
-Click Next.
+Set the start date and time for the task to run. Choose a time when your computer is typically on.
 
-Set the start date and time you want the script to run. You can choose a time when your computer is typically on.
+4. Set the Action
+Select Start a Program and click Next.
 
-Click Next.
+In the Program/script field, browse to and select the run_wheel.bat file that you created earlier.
 
-Set the Action:
+Leave Arguments and Start in empty, or set the directory for the batch file.
 
-Select Start a Program.
-
-Click Next.
-
-Choose the Program to Start:
-
-In the Program/script field, browse to and select the run_wheel.bat file you created earlier.
-
-Argument: Leave it empty.
-
-Start in (optional): This can be left empty, or you can add the directory where the batch file is located.
-
-Finish Setup:
-
-Click Next and then Finish.
-
-Your task is now scheduled to run every day at the specified time.
+5. Finish Setup
+Click Next, then Finish to schedule the task.
 
 License
 This project is licensed under the MIT License
-
-
-
-
