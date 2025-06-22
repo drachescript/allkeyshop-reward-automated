@@ -23,6 +23,9 @@ In your terminal, run:
 pip install Selenium
 pip install Requests
 ```
+or just:
+run install_requirements.bat
+
 3. Download ChromeDriver
 You'll need ChromeDriver for the script to work with Google Chrome. ChromeDriver is required for Selenium to control Chrome.
 
