@@ -58,6 +58,55 @@ Click the AllKeyShop wheel twice to spin it.
 
 Handle the popup and send the result to the Discord webhook.
 
+# Optional run script automatic daily:
+When you confirmed everything worked by having the script doing the task at least once here is the best way to have it automatically do it everyday:
+
+Open Task Scheduler
+
+Open the Start menu and search for Task Scheduler.
+
+Open Task Scheduler.
+
+Create a New Task
+
+In the Task Scheduler, click on Create Basic Task from the right-hand pane.
+
+Name the Task:
+
+Enter a name (e.g., AllKeyShop Wheel Automation).
+
+You can also provide a description, such as "Runs the wheel automation script every day."
+
+Set the Trigger:
+
+Choose Daily to run the task every day.
+
+Click Next.
+
+Set the start date and time you want the script to run. You can choose a time when your computer is typically on.
+
+Click Next.
+
+Set the Action:
+
+Select Start a Program.
+
+Click Next.
+
+Choose the Program to Start:
+
+In the Program/script field, browse to and select the run_wheel.bat file you created earlier.
+
+Argument: Leave it empty.
+
+Start in (optional): This can be left empty, or you can add the directory where the batch file is located.
+
+Finish Setup:
+
+Click Next and then Finish.
+
+Your task is now scheduled to run every day at the specified time.
+
 License
 This project is licensed under the MIT License
 
