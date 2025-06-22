@@ -1,3 +1,3 @@
 @echo off
-python D:\Documents\Bot\wheel\save_session.py
+python save_session.py
 pause
