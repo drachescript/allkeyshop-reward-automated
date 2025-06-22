@@ -1,4 +1,4 @@
 {
   "chromedriver_path": "chromedriver.exe",
-  "webhook_url": "webhookurl"
+  "webhook_url": ""
 }

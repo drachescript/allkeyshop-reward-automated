@@ -65,6 +65,11 @@ except Exception as e:
 
 # Function to send the result to the Discord Webhook
 def send_to_webhook(message):
+    # Check if the webhook URL is provided
+    if not config.get("webhook_url"):
+        print("Webhook URL not provided, skipping sending to Discord.")
+        return  # Skip sending to webhook if no URL is provided
+
     webhook_url = config["webhook_url"]
     payload = {
         "content": message
@@ -75,9 +80,9 @@ def send_to_webhook(message):
             print("Webhook sent successfully.")
         else:
             print(f"Failed to send webhook: {response.status_code}")
-    except Exception as e:
+    except requests.exceptions.RequestException as e:
         print(f"Error sending webhook: {e}")
-
+        
 # Function to click the center of the wheel
 def click_wheel():
     try:
@@ -102,7 +107,13 @@ def handle_popup_and_send():
         prize_text = popup_content.text
         print(f"Prize: {prize_text}")
 
-        send_to_webhook(f"Congratulations! {prize_text}")
+        # Check if the prize matches one of the rewards that need a mention
+        mention = ""
+        if any(prize in prize_text.lower() for prize in ["10 euro", "ps5"]):
+            mention = "<@315112274140332032> "  # Mention the user if it's one of the specified prizes
+        
+        # Send the prize text to Discord Webhook, with mention if necessary
+        send_to_webhook(f"{mention}Congratulations! {prize_text}")
 
         # Close the popup
         close_button = driver.find_element(By.CSS_SELECTOR, '.modal-content .mini-close')
